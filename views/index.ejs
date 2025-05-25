@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog Title Generator</title>
+</head>
+
+<body>
+    <h1>🎯 Blog Title Generator</h1>
+    <input type="text" id="topic" placeholder="Nhập chủ đề blog..." />
+    <button onclick="generate()">Tạo tiêu đề</button>
+    <h2>Kết quả:</h2>
+    <p id="result"></p>
+
+    <script>
+        async function generate() {
+            const topic = document.getElementById("topic").value;
+            const response = await fetch("/generate-title", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ topic }),
+            });
+
+            const data = await response.json();
+            document.getElementById("result").innerText = data.title || "Lỗi khi tạo tiêu đề!";
+        }
+    </script>
+</body>
+
+</html>
